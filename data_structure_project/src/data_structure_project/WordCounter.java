@@ -16,7 +16,7 @@ public class WordCounter {
     	this.urlStr = urlStr;
     }
     
-    private String fetchContent() throws IOException{
+    private String fetchContent() throws IOException {
 		URL url = URI.create(this.urlStr).toURL();
 		URLConnection conn = url.openConnection();
 		InputStream in = conn.getInputStream();
@@ -33,7 +33,7 @@ public class WordCounter {
 		return retVal;
     }
     
-    private int BoyerMoore(String T, String P){
+    private static int BoyerMoore(String T, String P){
 		int n = T.length();
 		int m = P.length();
 		for (int i = 0; i <= n-m; i++) {
@@ -52,7 +52,7 @@ public class WordCounter {
 		return -1;
     }
 
-    private int last(char c, String P){
+    private static int last(char c, String P){
 		for (int i = P.length() - 1; i >= 0; i--) {
 			if (P.charAt(i) == c) {
 				return i;
@@ -62,20 +62,20 @@ public class WordCounter {
     }
     
     public int countKeyword(String keyword) throws IOException {
-		if (content == null){
-		    content = fetchContent();
+		if (this.content == null){
+		    this.content = fetchContent();
 		}
 		
-		content = content.toUpperCase();
+		this.content = this.content.toUpperCase();
 		keyword = keyword.toUpperCase();
 	
 		int retVal = 0; 
-		int index = BoyerMoore(content, keyword);
+		int index = BoyerMoore(this.content, keyword);
 		
 		while (index != -1) {
-			content = content.substring(index+1);
+			this.content = this.content.substring(index+1);
 			retVal++;
-			index = BoyerMoore(content, keyword);
+			index = BoyerMoore(this.content, keyword);
 		}
 	
 		return retVal;
