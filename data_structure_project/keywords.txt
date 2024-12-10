@@ -1,0 +1,5 @@
+Travel 0 100
+Leisure 0 50
+Tourismus 0 100
+Besichtigung 0 100
+Reisen 0 100
