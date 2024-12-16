@@ -3,13 +3,11 @@ package data_structure_project;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Scanner;
 
 public class PageFilter {
-	private static final int THRESHOLD = 300;
+	private static final int THRESHOLD = 3000;
 	
 	ArrayList<WebPage> results;
 	ArrayList<Keyword> keywords;
@@ -43,13 +41,12 @@ public class PageFilter {
 		
 		while (scanner.hasNextLine()) {
 			String name = scanner.next();
-			int count = scanner.nextInt();
 			double weight = scanner.nextDouble();
-			if (count < 0 || weight < 0 || name.isBlank()) {
+			if (weight < 0 || name.isBlank()) {
 				System.out.println("InvalidOperation");
 				break;
 			}
-			list.add(new Keyword(name, count, weight));
+			list.add(new Keyword(name, weight));
 		}
 		scanner.close();
 		return list;
