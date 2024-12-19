@@ -1,5 +1,5 @@
 package data_structure_project;
-import java.io.IOException;
+
 import java.util.ArrayList;
 
 public class WebPage{

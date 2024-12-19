@@ -2,8 +2,6 @@ package data_structure_project;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -11,6 +9,9 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		String query = sc.next();
 		sc.close();
+		if (!query.contains("travel")) {
+			query = query + " travel";
+		}
 		GoogleQuery gq = new GoogleQuery(query);
 		ArrayList<WebPage> results = gq.query();
 		System.out.print(results);

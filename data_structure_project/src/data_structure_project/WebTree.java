@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class WebTree{
-	private static final boolean WebNode = false;
 	public WebNode root;
 
 	public WebTree(WebPage rootPage){

@@ -3,9 +3,7 @@ package data_structure_project;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Scanner;
 
 public class PageFilter {
@@ -34,7 +32,7 @@ public class PageFilter {
 		File file = new File("keywords.txt");
 		Scanner scanner;
 		try {
-			scanner = new Scanner(file).useLocale(Locale.ENGLISH);
+			scanner = new Scanner(file).useLocale(Locale.ENGLISH); // Make sure the parsing isn't system-dependant
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return null;
