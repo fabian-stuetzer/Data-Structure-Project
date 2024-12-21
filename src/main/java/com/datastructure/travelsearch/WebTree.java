@@ -6,30 +6,26 @@ import java.util.ArrayList;
 public class WebTree{
 	public WebNode root;
 
-	public WebTree(WebPage rootPage){
+	public WebTree(WebPage rootPage) {
 		this.root = new WebNode(rootPage);
 	}
 
-	public void setPostOrderScore(ArrayList<Keyword> keywords) throws IOException{
+	public void setPostOrderScore(ArrayList<Keyword> keywords) throws IOException {
 		setPostOrderScore(root, keywords);
 	}
 
-	private void setPostOrderScore(WebNode startNode, ArrayList<Keyword> keywords) throws IOException{
+	private void setPostOrderScore(WebNode startNode, ArrayList<Keyword> keywords) throws IOException {
 		for(WebNode child : startNode.children) {
 			setPostOrderScore(child, keywords);
 		}
 		startNode.setNodeScore(keywords);
-		// YOUR TURN
-		// 3. compute the score of children nodes via post-order, then setNodeScore for
-		// startNode
-
 	}
 
-	public void eularPrintTree(){
+	public void eularPrintTree() {
 		eularPrintTree(root);
 	}
 
-	private void eularPrintTree(WebNode startNode){
+	private void eularPrintTree(WebNode startNode) {
 		int nodeDepth = startNode.getDepth();
 
 		if (nodeDepth > 1)
@@ -38,8 +34,6 @@ public class WebTree{
 		System.out.print("(");
 		System.out.print(startNode.webPage.name + "," + startNode.nodeScore);
 		
-		// YOUR TURN
-		// 4. print child via pre-order
 		for(WebNode child : startNode.children) {
 			eularPrintTree(child);
 		}
@@ -65,7 +59,7 @@ public class WebTree{
 		return contents.toArray(new String[contents.size()]);
 	}
 
-	private String repeat(String str, int repeat){
+	private String repeat(String str, int repeat) {
 		String retVal = "";
 		for (int i = 0; i < repeat; i++){
 			retVal += str;

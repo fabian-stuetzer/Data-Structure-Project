@@ -2,7 +2,7 @@ package com.datastructure.travelsearch;
 
 import java.util.ArrayList;
 
-public class WebPage{
+public class WebPage {
 	public String url;
 	public String name;
 	public WordCounter counter;
@@ -11,7 +11,7 @@ public class WebPage{
 	public String content;
 	public String snippet;
 
-	public WebPage(String url, String name){
+	public WebPage(String url, String name) {
 		this.url = url;
 		this.name = name;
 		this.counter = new WordCounter(url);

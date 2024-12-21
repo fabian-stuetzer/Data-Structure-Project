@@ -1,8 +1,6 @@
 package com.datastructure.travelsearch;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.ArrayList;
 
