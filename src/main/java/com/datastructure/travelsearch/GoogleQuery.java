@@ -8,6 +8,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class GoogleQuery {
+	private static final int NUM_RESULTS = 2;
+	
      public String searchKeyword;
      public String url;
      public String content;
@@ -15,16 +17,9 @@ public class GoogleQuery {
      public GoogleQuery(String searchKeyword) {
          this.searchKeyword = searchKeyword;
          try {
-             // This part has been specially handled for Chinese keyword processing. 
-        	 // You can comment out the following two lines 
-        	 // and use the line of code in the lower section. 
-        	 // Also, consider why the results might be incorrect 
-        	 // when entering Chinese keywords.
         	 String encodeKeyword=java.net.URLEncoder.encode(searchKeyword,"utf-8");
-        	 this.url = "https://www.google.com/search?q="+encodeKeyword+"&oe=utf8&num=15";
+        	 this.url = "https://www.google.com/search?q="+encodeKeyword+"&oe=utf8&num=" + NUM_RESULTS;
         	 System.out.println(this.url);
-
-        	 // this.url = "https://www.google.com/search?q="+searchKeyword+"&oe=utf8&num=20";
          }
          catch (Exception e) {
         	 System.out.println(e.getMessage());
@@ -38,31 +33,25 @@ public class GoogleQuery {
 
     	 ArrayList<WebPage> retVal = new ArrayList<WebPage>();
 
-		 /* 
-		 * some Jsoup source
-		 * https://jsoup.org/apidocs/org/jsoup/nodes/package-summary.html
-		 * https://www.1ju.org/jsoup/jsoup-quick-start
-		 */
-
-    	 //using Jsoup analyze html string
     	 Document doc = Jsoup.parse(content);
 
     	 //select particular element(tag) which you want 
     	 Elements lis = doc.select("div");
-    	 lis = lis.select(".kCrYT");
+    	 lis = lis.select(".Gx5Zad.xpd.EtOod.pkphOe");
 
     	 for(Element li : lis) {
     		 try {
-    			 String citeUrl = li.select("a").get(0).attr("href").replace("/url?q=", "");
+    			 String citeUrl = li.selectFirst("a").attr("href").replace("/url?q=", "");
     			 citeUrl = citeUrl.substring(0, citeUrl.indexOf("&sa="));
-    			 String title = li.select("a").get(0).select(".vvjwJb").text();
-
+    			 String title = li.selectFirst("a").select(".vvjwJb").text();
+    			 String snippet = li.select(".BNeawe.s3v9rd.AP7Wnd > div > div > div").text();
+    			 
     			 if(title.equals("")) {
     				 continue;
     			 }
 
     			 //put title and pair into HashMap
-                 retVal.add(new WebPage(citeUrl, title));
+                 retVal.add(new WebPage(citeUrl, title, snippet));
 
              } catch (IndexOutOfBoundsException e) {
             	 // e.printStackTrace();

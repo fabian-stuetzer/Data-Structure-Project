@@ -7,7 +7,7 @@ import org.jsoup.select.Elements;
 
 public class TreeBuilder {
 	private static final int MAX_DEPTH = 1;
-	private static final int MAX_CHILDREN = 5;
+	private static final int MAX_CHILDREN = 3;
 	
 	WebPage page;
 	WebTree tree;

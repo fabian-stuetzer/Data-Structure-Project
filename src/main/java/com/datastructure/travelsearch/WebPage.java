@@ -7,12 +7,19 @@ public class WebPage{
 	public String name;
 	public WordCounter counter;
 	public double score;
+	public double tf_idf_score;
 	public String content;
+	public String snippet;
 
 	public WebPage(String url, String name){
 		this.url = url;
 		this.name = name;
 		this.counter = new WordCounter(url);
+	}
+	
+	public WebPage(String url, String name, String snippet) {
+		this(url, name);
+		this.snippet = snippet;
 	}
 
 	public void setScore(ArrayList<Keyword> keywords) {

@@ -11,8 +11,8 @@
     
     <div th:if="${results != null}">
         <div th:each="result : ${results}">
-            <h3><a th:href="${result.value}" th:text="${result.key}"></a></h3>
-            <p th:text="'Snippets not added yet'"></p>
+            <h3><a th:href="${result.url}" th:text="${result.name}"></a></h3>
+            <p th:text="${result.snippet}"></p>
         </div>
     </div>
 </body>

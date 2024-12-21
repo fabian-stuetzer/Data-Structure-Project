@@ -3,11 +3,12 @@ package com.datastructure.travelsearch;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.PriorityQueue;
 import java.util.ArrayList;
 
 public class Search {
-	public static HashMap<String, String> search(String query) throws IOException {
-		/***
+	public static PriorityQueue<WebPage> search(String query) throws IOException {
+		
 		if (!query.contains("travel")) {
 			query = query + " travel";
 		}
@@ -34,21 +35,17 @@ public class Search {
 		}
 		
 		TF_IDF_Singleton tf_idf = TF_IDF_Singleton.getInstance(corpus);
-		double[] score = new double[result_trees.size()];
+		PriorityQueue<WebPage> results_sorted = new PriorityQueue<WebPage>((s1, s2) -> Double.compare(s2.tf_idf_score, s1.tf_idf_score));
+		
 		for (int i = 0; i < result_trees.size(); i++) {
-			score[i] = 0;
+			double score = 0;
 			for (String keyword : query.split(" ")) {
-				score[i] += tf_idf.getScore(keyword, corpus[i]);
+				score += tf_idf.getScore(keyword, corpus[i]);
 			}
-		}
-		
-		System.out.println(Arrays.toString(score));
-		System.out.println();***/
-		
-		HashMap<String, String> example = new HashMap<String,String>(); //Return the search results in the right order as a HashMap
-		example.put("Fang", "http://soslab.nccu.edu.tw/Courses.html");
-		example.put("NCCU", "https://www.nccu.edu.tw/");
-		example.put("Banana", "https://en.wikipedia.org/wiki/Banana");
-		return example;
+			result_trees.get(i).root.webPage.tf_idf_score = score;
+			results_sorted.add(result_trees.get(i).root.webPage);
+		}		
+		System.out.println("Search completed.");
+		return results_sorted;
 	}
 }

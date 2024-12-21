@@ -1,6 +1,6 @@
 package com.datastructure.travelsearch;
 
-import java.util.HashMap;
+import java.util.PriorityQueue;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +18,7 @@ public class SearchController {
 	@GetMapping("/search")
     public String search(@RequestParam String query, Model model) {
         try {
-        	HashMap<String, String> results = Search.search(query);
+        	PriorityQueue<WebPage> results = Search.search(query);
             model.addAttribute("results", results);
             return "index";
         } catch (Exception e) {
