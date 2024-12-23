@@ -2,17 +2,157 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Travoogle</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 15vh;
+        }
+
+        .logo {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            color: #4285f4;
+            font-weight: bold;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 584px;
+            margin: 0 auto;
+        }
+
+        .search-wrapper {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            height: 44px;
+            padding: 0 50px;
+            font-size: 16px;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-input:hover {
+            box-shadow: 0 1px 6px rgba(32,33,36,.28);
+            border-color: rgba(223,225,229,0);
+        }
+
+        .search-input:focus {
+            box-shadow: 0 1px 6px rgba(32,33,36,.28);
+            border-color: rgba(223,225,229,0);
+        }
+
+        .search-btn {
+            background: #f8f9fa;
+            border: 1px solid #f8f9fa;
+            border-radius: 4px;
+            color: #3c4043;
+            font-size: 14px;
+            margin: 20px 4px;
+            padding: 0 16px;
+            height: 36px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .search-btn:hover {
+            box-shadow: 0 1px 1px rgba(0,0,0,.1);
+            background-color: #f8f9fa;
+            border: 1px solid #dadce0;
+            color: #202124;
+        }
+
+        .results {
+            width: 100%;
+            max-width: 652px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .result-item {
+            margin-bottom: 25px;
+        }
+
+        .result-item h3 {
+            margin-bottom: 5px;
+        }
+
+        .result-item h3 a {
+            color: #1a0dab;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .result-item h3 a:hover {
+            text-decoration: underline;
+        }
+
+        .result-item p {
+            color: #4d5156;
+            font-size: 14px;
+            line-height: 1.58;
+        }
+
+        .result-url {
+            color: #006621;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+    </style>
 </head>
 <body>
-    <form action="/search" method="get">
-        <input type="text" name="query" />
-        <button type="submit">Search</button>
-    </form>
-    
-    <div th:if="${results != null}">
-        <div th:each="result : ${results}">
-            <h3><a th:href="${result.url}" th:text="${result.name}"></a></h3>
-            <p th:text="${result.snippet}"></p>
+    <div class="container">
+        <div class="logo">Travoogle</div>
+        <div class="search-box">
+            <form action="/search" method="get">
+                <div class="search-wrapper">
+                    <input 
+                        type="text" 
+                        name="query" 
+                        class="search-input"
+                        th:value="${param.query}"
+                        placeholder="搜尋旅遊景點..."
+                        autocomplete="off"
+                    />
+                </div>
+                <div style="text-align: center;">
+                    <button type="submit" class="search-btn">搜尋</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="results" th:if="${results != null}">
+            <div class="result-item" th:each="result : ${results}">
+                <h3>
+                    <a th:href="${result.url}" th:text="${result.name}"></a>
+                </h3>
+                <div class="result-url" th:text="${result.url}"></div>
+                <p th:text="${result.snippet}"></p>
+            </div>
         </div>
     </div>
 </body>
