@@ -4,33 +4,17 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class TF_IDF_Singleton {
-
-	private static TF_IDF_Singleton instance;
 	
     private String[][] corpus; // Corpus: a collection of documents, where each document is an array of strings (words)
     private HashMap<String, Double> idf_dict; // Stores the IDF values for each term
     private HashMap<String, Integer> docFreqDict; // Stores the document frequency for each term
 
     // Constructor: initializes the corpus and prepares the data structures for IDF calculation
-    private TF_IDF_Singleton(String[][] corpus) {
+    public TF_IDF_Singleton(String[][] corpus) {
     	this.corpus = corpus;
         this.idf_dict = new HashMap<String, Double>();
         this.docFreqDict = new HashMap<String, Integer>();
         preprocessCorpus();
-    }
-    
-    public static TF_IDF_Singleton getInstance(String[][] corpus) {
-    	if (instance == null) {
-    		instance = new TF_IDF_Singleton(corpus);
-    		return instance;
-    	} else {
-    		System.exit(1);
-    		return null;
-    	}
-    }
-    
-    public static TF_IDF_Singleton getInstance() {
-    	return instance;
     }
     
     // Preprocess the corpus to calculate document frequency (DF) for each term
