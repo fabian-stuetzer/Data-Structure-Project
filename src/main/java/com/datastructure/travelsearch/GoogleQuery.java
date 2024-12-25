@@ -24,7 +24,7 @@ public class GoogleQuery {
         	 System.out.println(e.getMessage());
          }
      }
-
+     
      public ArrayList<WebPage> query() throws IOException {
     	 if(content == null) {
     		 content = Utilities.fetchContent(url);
@@ -35,8 +35,8 @@ public class GoogleQuery {
     	 Document doc = Jsoup.parse(content);
 
     	 //select particular element(tag) which you want 
-    	 Elements lis = doc.select("div");
-    	 lis = lis.select(".Gx5Zad.xpd.EtOod.pkphOe");
+    	 Elements lis = doc.select("div[class='Gx5Zad xpd EtOod pkphOe']");
+    	 lis = lis.select("div:has(div.egMi0)");
 
     	 for(Element li : lis) {
     		 try {
