@@ -19,6 +19,9 @@ public class Utilities {
 	}
 	
 	private static String fetchFromWeb(String urlStr) {
+		if (urlStr.endsWith(".pdf") || !(urlStr.startsWith("http://") || urlStr.startsWith("https://") || urlStr.startsWith("www."))) {
+			return "";
+		}
 		System.out.println("Fetching " + urlStr + "...");
 		try {
 	    	 String retVal = "";
