@@ -6,9 +6,19 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 
 public class Utilities {
+	private static HashMap<String, String> contents = new HashMap<String, String>();
+	
 	public static String fetchContent(String urlStr) {
+		if(!contents.containsKey(urlStr)) {
+			contents.put(urlStr, fetchFromWeb(urlStr));
+		}
+		return contents.get(urlStr);
+	}
+	
+	private static String fetchFromWeb(String urlStr) {
 		System.out.println("Fetching " + urlStr + "...");
 		try {
 	    	 String retVal = "";

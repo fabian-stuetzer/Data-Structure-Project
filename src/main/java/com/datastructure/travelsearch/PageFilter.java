@@ -5,6 +5,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ExecutorService;
 
 public class PageFilter {
 	private static final int THRESHOLD = 3000;
@@ -19,8 +22,23 @@ public class PageFilter {
 	
 	public ArrayList<WebPage> filter() {
 		ArrayList<WebPage> results_filtered = new ArrayList<WebPage>();
+		
+		ExecutorService executor = Executors.newScheduledThreadPool(Search.MAX_THREADS);
+		ArrayList<Future<?>> futures = new ArrayList<Future<?>>();
+		
 		for(WebPage result : results) {
-			result.setScore(keywords);
+			futures.add(executor.submit(() -> result.setScore(keywords)));
+		}
+		
+		for(Future<?> future : futures) {
+			try {
+				future.get();
+			} catch(Exception e) {
+				continue;
+			}
+		}
+		
+		for(WebPage result : results) {
 			if (result.score >= THRESHOLD) {
 				results_filtered.add(result);
 			}

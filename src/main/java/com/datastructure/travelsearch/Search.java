@@ -2,9 +2,14 @@ package com.datastructure.travelsearch;
 
 import java.io.IOException;
 import java.util.PriorityQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 import java.util.ArrayList;
 
 public class Search {
+	static final int MAX_THREADS = 10;
+	
 	public static PriorityQueue<WebPage> search(String query) throws IOException {
 		
 		if (!query.contains("travel")) {
@@ -21,10 +26,21 @@ public class Search {
 		System.out.print(results);
 		
 		ArrayList<WebTree> result_trees = new ArrayList<WebTree>();
+		
+		ExecutorService executor = Executors.newScheduledThreadPool(MAX_THREADS);
+		ArrayList<Future<?>> futures = new ArrayList<Future<?>>();
+		
 		for (WebPage page : results) {
 			TreeBuilder tb = new TreeBuilder(page);
-			tb.initializeTree();
-			result_trees.add(tb.tree);
+			futures.add(executor.submit(() -> {tb.initializeTree(); result_trees.add(tb.tree);}));
+		}
+		
+		for(Future<?> future : futures) {
+			try {
+				future.get();
+			} catch (Exception e) {
+				continue;
+			}
 		}
 		
 		String[][] corpus = new String[result_trees.size()][];
