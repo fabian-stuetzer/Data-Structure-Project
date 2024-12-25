@@ -3,14 +3,14 @@ package com.datastructure.travelsearch;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class TF_IDF_Singleton {
+public class TF_IDF {
 	
     private String[][] corpus; // Corpus: a collection of documents, where each document is an array of strings (words)
     private HashMap<String, Double> idf_dict; // Stores the IDF values for each term
     private HashMap<String, Integer> docFreqDict; // Stores the document frequency for each term
 
     // Constructor: initializes the corpus and prepares the data structures for IDF calculation
-    public TF_IDF_Singleton(String[][] corpus) {
+    public TF_IDF(String[][] corpus) {
     	this.corpus = corpus;
         this.idf_dict = new HashMap<String, Double>();
         this.docFreqDict = new HashMap<String, Integer>();

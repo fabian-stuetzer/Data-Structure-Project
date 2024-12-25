@@ -48,7 +48,7 @@ public class Search {
 			corpus[i] = result_trees.get(i).aggregateContents();
 		}
 		
-		TF_IDF_Singleton tf_idf = new TF_IDF_Singleton(corpus);
+		TF_IDF tf_idf = new TF_IDF(corpus);
 		PriorityQueue<WebPage> results_sorted = new PriorityQueue<WebPage>((s1, s2) -> Double.compare(s2.tf_idf_score, s1.tf_idf_score));
 		
 		for (int i = 0; i < result_trees.size(); i++) {
