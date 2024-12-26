@@ -29,8 +29,8 @@ public class Utilities {
 	    	 URL url = URI.create(urlStr).toURL();
 	    	 URLConnection conn = url.openConnection();
 	    	 conn.setRequestProperty("User-agent", "Chrome/107.0.5304.107");
-	    	 conn.setConnectTimeout(3000);
-	    	 conn.setReadTimeout(10000);
+	    	 conn.setConnectTimeout(1000);
+	    	 conn.setReadTimeout(1000);
 	    	 InputStream in = conn.getInputStream();
 
 	    	 InputStreamReader inReader = new InputStreamReader(in, "utf-8");
