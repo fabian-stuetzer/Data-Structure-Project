@@ -148,7 +148,7 @@
         <div class="results" th:if="${results != null}">
             <div class="result-item" th:each="result : ${results}">
                 <h3>
-                    <a th:href="${result.url}" th:text="${result.name}"></a>
+                    <a th:href="${result.url}" th:text="${result.name}" target="_blank"></a>
                 </h3>
                 <div class="result-url" th:text="${result.url}"></div>
                 <p th:text="${result.snippet}"></p>
