@@ -9,8 +9,7 @@ public class WordCounter {
 	}
 
 	public int countKeyword(String keyword) {
-		if (content == null)
-		{
+		if (content == null) {
 			content = Utilities.fetchContent(urlStr);
 		}
 		content = content.toUpperCase();

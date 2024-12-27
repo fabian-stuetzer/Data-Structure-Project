@@ -54,7 +54,7 @@ public class PageFilter {
 	    	while (scanner.hasNextLine()) {
 	            String name = scanner.next();
 	            double weight = scanner.nextDouble();
-	            if (weight < 0 || name.isBlank()) {
+	            if (name.isBlank()) {
 	                System.out.println("InvalidOperation");
 	                break;
 	            }
