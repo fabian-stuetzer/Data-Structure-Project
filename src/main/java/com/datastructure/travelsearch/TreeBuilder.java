@@ -28,25 +28,21 @@ public class TreeBuilder {
 	    String content = Utilities.fetchContent(node.webPage.url);
 	    Document doc = Jsoup.parse(content);
 	    Elements links = doc.select("a[href]"); 
-	    int count = 0; 
-	    for (Element link : links) {
-	        if (count >= MAX_CHILDREN) {
-	            break; // If 5 sub-webpages have been extracted, stop looping
-	        }
-
-	        String url = link.attr("href"); 
-	        String name = link.text();
-
-	        if (url == null || url.isEmpty() || name == null || name.isEmpty()) {
-	            continue;
-	        }
-
-	        WebNode child = new WebNode(new WebPage(url, name));
-	        node.addChild(child); 
-	        
-	        createChildren(child, depth + 1);
-
-	        count++;
-	    }
+	    links.stream()
+	    	.filter(link -> !link.attr("href").isEmpty())
+	    	.filter(link -> link.attr("href").startsWith("http://") || link.attr("href").startsWith("https://") || link.attr("href").startsWith("www."))
+	    	.filter(link -> !link.attr("href").endsWith(".pdf"))
+	    	.filter(link -> !link.attr("href").isEmpty() && !link.text().isEmpty())
+	    	.limit(MAX_CHILDREN)
+	    	.forEach(link -> {
+		        String url = link.attr("href"); 
+		        String name = link.text();
+	
+	
+		        WebNode child = new WebNode(new WebPage(url, name));
+		        node.addChild(child); 
+		        
+		        createChildren(child, depth + 1);
+	    	});
 	}
 }
