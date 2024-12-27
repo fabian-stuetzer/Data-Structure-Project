@@ -145,6 +145,12 @@
             </form>
         </div>
         
+		<div class="related" th:if="${related != null}">
+			<div class="related-item" th:each="related_item : ${related}">
+				<span th:text="${related_item}"></span>
+			</div>
+		</div>
+		
         <div class="results" th:if="${results != null}">
             <div class="result-item" th:each="result : ${results}">
                 <h3>

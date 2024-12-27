@@ -10,18 +10,18 @@ import java.util.ArrayList;
 public class Search {
 	static final int MAX_THREADS = 10;
 	
-	public static PriorityQueue<WebPage> search(String query) throws IOException {
+	public static Pair<PriorityQueue<WebPage>, ArrayList<String>> search(String query) throws IOException {
 		
 		if (!query.contains("travel")) {
 			query = query + " travel";
 		}
 		
 		GoogleQuery gq = new GoogleQuery(query);
-		ArrayList<WebPage> results = gq.query();
+		Pair<ArrayList<WebPage>, ArrayList<String>> query_return = gq.query();
+		ArrayList<WebPage> results = query_return.get1();
 		System.out.print(results);
 		
 		PageFilter filter = new PageFilter(results);
-		System.out.println("\nFiltering results...\n");
 		results = filter.filter();
 		System.out.print(results);
 		
@@ -75,14 +75,8 @@ public class Search {
 		}		
 		System.out.println("Search completed.");
 		
-		if(results_sorted.isEmpty()) {
-			WebPage wp = new WebPage("localhost:8080", "No results");
-			wp.snippet = "No results for your search were found. You can return to the start page or try a different search term.";
-			PriorityQueue<WebPage> pq = new PriorityQueue<WebPage>();
-			pq.add(wp);
-			return pq;
-		}
+		ArrayList<String> related = query_return.get2();
 		
-		return results_sorted;
+		return new Pair<PriorityQueue<WebPage>, ArrayList<String>>(results_sorted, related);
 	}
 }

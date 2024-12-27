@@ -10,7 +10,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ExecutorService;
 
 public class PageFilter {
-	private static final int THRESHOLD = 3000;
+	private static final int THRESHOLD = 5000;
 	
 	ArrayList<WebPage> results;
 	ArrayList<Keyword> keywords;

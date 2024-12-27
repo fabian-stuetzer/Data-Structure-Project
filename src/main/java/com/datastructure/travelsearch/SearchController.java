@@ -1,5 +1,6 @@
 package com.datastructure.travelsearch;
 
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 import org.springframework.stereotype.Controller;
@@ -18,8 +19,11 @@ public class SearchController {
 	@GetMapping("/search")
     public String search(@RequestParam String query, Model model) {
         try {
-        	PriorityQueue<WebPage> results = Search.search(query);
+        	Pair<PriorityQueue<WebPage>, ArrayList<String>> query_return = Search.search(query);
+        	PriorityQueue<WebPage> results = query_return.get1();
             model.addAttribute("results", results);
+            ArrayList<String> related = query_return.get2();
+            model.addAttribute("related", related);
             return "index";
         } catch (Exception e) {
             e.printStackTrace();

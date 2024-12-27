@@ -25,7 +25,7 @@ public class GoogleQuery {
          }
      }
      
-     public ArrayList<WebPage> query() throws IOException {
+     public Pair<ArrayList<WebPage>, ArrayList<String>> query() throws IOException {
     	 if(content == null) {
     		 content = Utilities.fetchContent(url);
     	 }
@@ -34,7 +34,6 @@ public class GoogleQuery {
 
     	 Document doc = Jsoup.parse(content);
 
-    	 //select particular element(tag) which you want 
     	 Elements lis = doc.select("div[class='Gx5Zad xpd EtOod pkphOe']");
     	 lis = lis.select("div:has(div.egMi0)");
 
@@ -49,13 +48,19 @@ public class GoogleQuery {
     				 continue;
     			 }
 
-    			 //put title and pair into HashMap
                  retVal.add(new WebPage(citeUrl, title, snippet));
 
              } catch (IndexOutOfBoundsException e) {
-            	 // e.printStackTrace();
+            	 continue;
              }
          }
-         return retVal;
+    	 
+    	 Elements rel = doc.select("a[class='Q71vJc']");
+    	 ArrayList<String> related = new ArrayList<String>();
+    	 for(Element related_element : rel) {
+    		 related.add(related_element.text());
+    	 }
+    	 
+         return new Pair<ArrayList<WebPage>, ArrayList<String>>(retVal, related);
      }
  }
