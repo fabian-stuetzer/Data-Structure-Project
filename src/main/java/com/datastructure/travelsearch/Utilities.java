@@ -6,7 +6,9 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.PriorityQueue;
 
 public class Utilities {
 	private static HashMap<String, String> contents = new HashMap<String, String>();
@@ -44,5 +46,13 @@ public class Utilities {
 		} catch(Exception e) {
 			return "";
 		}
+	}
+	
+	public static ArrayList<WebPage> heapToList(PriorityQueue<WebPage> queue) {
+		ArrayList<WebPage> list = new ArrayList<WebPage>();
+		while(!queue.isEmpty()) {
+			list.add(queue.poll());
+		}
+		return list;
 	}
 }

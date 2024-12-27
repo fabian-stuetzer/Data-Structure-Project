@@ -19,8 +19,8 @@ public class SearchController {
 	@GetMapping("/search")
     public String search(@RequestParam String query, Model model) {
         try {
-        	Pair<PriorityQueue<WebPage>, ArrayList<String>> query_return = Search.search(query);
-        	PriorityQueue<WebPage> results = query_return.get1();
+        	Pair<ArrayList<WebPage>, ArrayList<String>> query_return = Search.search(query);
+        	ArrayList<WebPage> results = query_return.get1();
             model.addAttribute("results", results);
             ArrayList<String> related = query_return.get2();
             model.addAttribute("related", related);

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Search {
 	static final int MAX_THREADS = 10;
 	
-	public static Pair<PriorityQueue<WebPage>, ArrayList<String>> search(String query) throws IOException {
+	public static Pair<ArrayList<WebPage>, ArrayList<String>> search(String query) throws IOException {
 		
 		if (!query.contains("travel")) {
 			query = query + " travel";
@@ -75,8 +75,9 @@ public class Search {
 		}		
 		System.out.println("Search completed.");
 		
+		ArrayList<WebPage> results_list = Utilities.heapToList(results_sorted);
 		ArrayList<String> related = query_return.get2();
 		
-		return new Pair<PriorityQueue<WebPage>, ArrayList<String>>(results_sorted, related);
+		return new Pair<ArrayList<WebPage>, ArrayList<String>>(results_list, related);
 	}
 }
