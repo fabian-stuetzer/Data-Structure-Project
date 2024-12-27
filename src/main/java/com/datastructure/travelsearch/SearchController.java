@@ -1,7 +1,6 @@
 package com.datastructure.travelsearch;
 
 import java.util.ArrayList;
-import java.util.PriorityQueue;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
