@@ -4,38 +4,54 @@
     <title>Travoogle</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import a fancy Google Font -->
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
+            /* Subtle background gradient */
+            background: linear-gradient(135deg, #f9f9f9 25%, #e0f7fa 100%);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            color: #333;
         }
 
+        /* Main container centering */
         .container {
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 15vh;
+            justify-content: center;
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
         }
 
+        /* Logo styles */
         .logo {
-            font-size: 5rem;
+            font-size: 4rem;
             margin-bottom: 2rem;
             color: #4285f4;
-            font-weight: bold;
+            font-weight: 700;
+            /* Slight text shadow for a fancy touch */
+            text-shadow: 2px 2px 6px rgba(66, 133, 244, 0.3);
         }
 
+        /* Search box area */
         .search-box {
             width: 100%;
-            max-width: 584px;
+            max-width: 600px;
             margin: 0 auto;
         }
 
@@ -50,83 +66,109 @@
             height: 44px;
             padding: 0 50px;
             font-size: 16px;
-            border: 1px solid #dfe1e5;
+            border: 2px solid #dfe1e5;
             border-radius: 24px;
             outline: none;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
 
-        .search-input:hover {
-            box-shadow: 0 1px 6px rgba(32,33,36,.28);
-            border-color: rgba(223,225,229,0);
-        }
-
+        .search-input:hover,
         .search-input:focus {
-            box-shadow: 0 1px 6px rgba(32,33,36,.28);
-            border-color: rgba(223,225,229,0);
+            border-color: #4285f4;
+            box-shadow: 0 0 6px rgba(66, 133, 244, 0.3);
         }
 
+        /* Search button */
         .search-btn {
-            background: #f8f9fa;
-            border: 1px solid #f8f9fa;
+            background: #4285f4;
+            border: none;
             border-radius: 4px;
-            color: #3c4043;
+            color: #fff;
             font-size: 14px;
             margin: 20px 4px;
             padding: 0 16px;
             height: 36px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
         }
 
         .search-btn:hover {
-            box-shadow: 0 1px 1px rgba(0,0,0,.1);
-            background-color: #f8f9fa;
-            border: 1px solid #dadce0;
-            color: #202124;
+            background-color: #306fc0;
+            box-shadow: 0 3px 6px rgba(48, 111, 192, 0.2);
         }
 
+        /* Related search tags */
+        .related {
+            margin-top: 20px;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .related-item {
+            display: inline-block;
+            background: #e0f7fa;
+            color: #333;
+            padding: 8px 12px;
+            margin: 4px;
+            border-radius: 16px;
+            font-size: 14px;
+        }
+
+        /* Results section */
         .results {
             width: 100%;
-            max-width: 652px;
-            margin: 20px auto;
+            max-width: 800px;
+            margin: 30px auto;
             padding: 0 20px;
         }
 
         .result-item {
             margin-bottom: 25px;
+            background: #fff;
+            padding: 15px 20px;
+            border-radius: 6px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
+        }
+
+        .result-item:hover {
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08);
         }
 
         .result-item h3 {
             margin-bottom: 5px;
+            font-size: 20px;
         }
 
         .result-item h3 a {
             color: #1a0dab;
             text-decoration: none;
-            font-size: 18px;
         }
 
         .result-item h3 a:hover {
             text-decoration: underline;
         }
 
-        .result-item p {
-            color: #4d5156;
-            font-size: 14px;
-            line-height: 1.58;
-        }
-
         .result-url {
             color: #006621;
             font-size: 14px;
             margin-bottom: 3px;
+            word-wrap: break-word;
+        }
+
+        .result-item p {
+            color: #4d5156;
+            font-size: 16px;
+            line-height: 1.5;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Logo -->
         <div class="logo">Travoogle</div>
+
+        <!-- Search box -->
         <div class="search-box">
             <form action="/search" method="get">
                 <div class="search-wrapper">
@@ -144,13 +186,15 @@
                 </div>
             </form>
         </div>
-        
+
+        <!-- Related searches (if any) -->
 		<div class="related" th:if="${related != null}">
 			<div class="related-item" th:each="related_item : ${related}">
 				<span th:text="${related_item}"></span>
 			</div>
 		</div>
-		
+
+        <!-- Search results (if any) -->
         <div class="results" th:if="${results != null}">
             <div class="result-item" th:each="result : ${results}">
                 <h3>
