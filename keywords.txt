@@ -37,3 +37,7 @@ hotel 15
 hostel 15
 flight 15
 must-eat 25
+shop -70
+product -70
+buy -30
+order -30

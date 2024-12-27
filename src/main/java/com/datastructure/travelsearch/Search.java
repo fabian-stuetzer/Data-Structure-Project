@@ -13,7 +13,7 @@ public class Search {
 	public static Pair<ArrayList<WebPage>, ArrayList<String>> search(String query) throws IOException {
 		
 		if (!query.contains("travel")) {
-			query = query + " travel";
+			query = "\"travel\" OR \"vacation\" to -product -shop -order -buy " + query;
 		}
 		
 		GoogleQuery gq = new GoogleQuery(query);
