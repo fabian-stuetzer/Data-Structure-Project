@@ -24,7 +24,7 @@ public class Utilities {
 		if (urlStr.endsWith(".pdf") || !(urlStr.startsWith("http://") || urlStr.startsWith("https://") || urlStr.startsWith("www."))) {
 			return "";
 		}
-		System.out.println("Fetching " + urlStr + "...");
+		System.out.println("Fetching " + urlStr);
 		try {
 	    	 String retVal = "";
 

@@ -11,19 +11,20 @@ public class Search {
 	static final int MAX_THREADS = 30;
 	
 	public static Pair<ArrayList<WebPage>, ArrayList<String>> search(String query) throws IOException {
+		System.out.println("\nUser search term: " + query + "\n");
 		
 		if (!query.contains("travel")) {
 			query = "\"travel\" OR \"vacation\" to -product -shop -order -buy " + query;
 		}
 		
+		System.out.println("Searching for: " + query + "\n");
+		
 		GoogleQuery gq = new GoogleQuery(query);
 		Pair<ArrayList<WebPage>, ArrayList<String>> query_return = gq.query();
 		ArrayList<WebPage> results = query_return.get1();
-		System.out.print(results);
 		
 		PageFilter filter = new PageFilter(results);
 		results = filter.filter();
-		System.out.print(results);
 		
 		ArrayList<WebTree> result_trees = new ArrayList<WebTree>();
 		
@@ -42,8 +43,6 @@ public class Search {
 				continue;
 			}
 		}
-		
-		System.out.println("\n\nGenerating corpus...\n");
 		
 		executor = Executors.newScheduledThreadPool(MAX_THREADS);
 		futures = new ArrayList<Future<?>>();
@@ -73,7 +72,7 @@ public class Search {
 			result_trees.get(i).root.webPage.tf_idf_score = score;
 			results_sorted.add(result_trees.get(i).root.webPage);
 		}		
-		System.out.println("Search completed.");
+		System.out.println("\nSearch completed.");
 		
 		ArrayList<WebPage> results_list = Utilities.heapToList(results_sorted);
 		ArrayList<String> related = query_return.get2();
