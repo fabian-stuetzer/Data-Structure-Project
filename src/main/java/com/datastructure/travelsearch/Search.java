@@ -8,7 +8,7 @@ import java.util.concurrent.Future;
 import java.util.ArrayList;
 
 public class Search {
-	static final int MAX_THREADS = 10;
+	static final int MAX_THREADS = 30;
 	
 	public static Pair<ArrayList<WebPage>, ArrayList<String>> search(String query) throws IOException {
 		

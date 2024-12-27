@@ -8,7 +8,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class GoogleQuery {
-	private static final int NUM_RESULTS = 20;
+	private static final int NUM_RESULTS = 30;
 	
      public String searchKeyword;
      public String url;
