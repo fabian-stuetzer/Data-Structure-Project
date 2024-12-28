@@ -190,7 +190,7 @@
         <!-- Related searches (if any) -->
 		<div class="related" th:if="${related != null}">
 			<div class="related-item" th:each="related_item : ${related}">
-				<span th:text="${related_item}"></span>
+				<a th:href="@{/search(query=${related_item})}" class="related-link" th:text="${related_item}"></a>
 			</div>
 		</div>
 
@@ -200,7 +200,6 @@
                 <h3>
                     <a th:href="${result.url}" th:text="${result.name}" target="_blank"></a>
                 </h3>
-                <div class="result-url" th:text="${result.url}"></div>
                 <p th:text="${result.snippet}"></p>
             </div>
         </div>
